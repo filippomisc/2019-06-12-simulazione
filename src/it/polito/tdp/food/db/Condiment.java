@@ -1,8 +1,8 @@
 package it.polito.tdp.food.db;
 
-public class Condiment {
+public class Condiment implements Comparable<Condiment>{
 	private Integer condiment_id;
-	private Integer food_code;
+	private Integer condiment_food_code;
 	private String display_name;
 	private String condiment_portion_size;
 	private Double condiment_calories;
@@ -11,7 +11,7 @@ public class Condiment {
 			Double condiment_calories) {
 		super();
 		this.condiment_id = condiment_id;
-		this.food_code = food_code;
+		this.condiment_food_code = food_code;
 		this.display_name = display_name;
 		this.condiment_portion_size = condiment_portion_size;
 		this.condiment_calories = condiment_calories;
@@ -24,10 +24,10 @@ public class Condiment {
 		this.condiment_id = condiment_id;
 	}
 	public Integer getFood_code() {
-		return food_code;
+		return condiment_food_code;
 	}
 	public void setFood_code(Integer food_code) {
-		this.food_code = food_code;
+		this.condiment_food_code = food_code;
 	}
 	public String getDisplay_name() {
 		return display_name;
@@ -77,6 +77,20 @@ public class Condiment {
 		} else if (!condiment_id.equals(other.condiment_id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Condiment o) {
+		double c1 = this.getCondiment_calories();
+		double c2 = o.getCondiment_calories();
+		
+		if(c1>c2)
+			return 1;
+		else if(c1<c2)
+			return -1;
+		else
+			return 0;
+
 	}
 	
 	

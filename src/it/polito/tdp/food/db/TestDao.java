@@ -6,8 +6,12 @@ public class TestDao {
 	public static void main(String[] args) {
 		FoodDao dao = new FoodDao();
 		
-		System.out.println(dao.listAllFood());
-		System.out.println(dao.listAllCondiment());
+		FoodIdMap fIdMap = new FoodIdMap();
+		CondimentIdMap cIdMap = new CondimentIdMap();
+		
+		System.out.println(dao.listAllFood(fIdMap).size());
+		System.out.println(dao.listAllCondiment(cIdMap).size());
+		System.out.println(dao.listCondiment(cIdMap, 20.0).size());
 
 	}
 
