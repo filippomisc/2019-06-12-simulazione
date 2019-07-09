@@ -59,7 +59,8 @@ public class FoodController {
 			
 			model.createGraph(calorie);
 			
-			this.txtResult.appendText(model.ListCondRes().toString());
+//			this.txtResult.appendText(model.ListCondRes().toString());
+			this.txtResult.appendText(model.ListCondResSQL().toString());
 		} catch (NumberFormatException e) {
 				this.txtResult.setText("inserire un valore numerico");
 		}

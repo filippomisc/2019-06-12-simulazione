@@ -8,6 +8,7 @@ public class CondimentRes implements Comparable<CondimentRes>{
 	
 	int sum;
 	double calorie;
+	
 	public CondimentRes(Condiment condiment, int sum) {
 		super();
 		this.calorie= condiment.getCondiment_calories();

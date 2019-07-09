@@ -84,5 +84,20 @@ public class Model {
 	
 	}
 	
+	
+	public List<CondimentRes> ListCondResSQL(){
+		List<CondimentRes> res=new ArrayList<>();
+
+		for (Condiment condiment : this.graph.vertexSet()) {
+			
+			int sum = dao.getNumCibi(condiment.getCondiment_id());
+			CondimentRes condimentRes= new CondimentRes(condiment, sum);
+			res.add(condimentRes);
+		}
+		
+		Collections.sort(res);
+		return res;
+	}
+	
 
 }

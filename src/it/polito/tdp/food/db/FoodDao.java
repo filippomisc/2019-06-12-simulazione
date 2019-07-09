@@ -212,6 +212,42 @@ public class FoodDao {
 		}
 
 	}
+
+	public int getNumCibi(Integer condiment_id) {
+		String sql = "select count(f.food_id) as cnt " + 
+				"from condiment c, food_condiment fc, food f " + 
+				"where c.condiment_id=? " + 
+				"and c.food_code=fc.condiment_food_code " + 
+				"and f.food_code=fc.food_code " + 
+				"group by c.condiment_id, c.display_name" ;
+		try {
+			Connection conn = DBConnect.getConnection() ;
+
+			PreparedStatement st = conn.prepareStatement(sql); 
+					st.setDouble(1, condiment_id);
+			
+
+					int cnt = 0;
+			ResultSet res = st.executeQuery() ;
+			
+			if(res.next()) {
+				
+					cnt=res.getInt("cnt");
+					
+					
+					
+				
+			}
+			
+			conn.close();
+			return cnt ;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0 ;
+		}
+
+	}
 	
 	
 }
