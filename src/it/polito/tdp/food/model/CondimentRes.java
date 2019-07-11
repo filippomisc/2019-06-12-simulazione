@@ -1,6 +1,5 @@
 package it.polito.tdp.food.model;
 
-import it.polito.tdp.food.db.Condiment;
 
 public class CondimentRes implements Comparable<CondimentRes>{
 	

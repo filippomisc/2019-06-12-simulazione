@@ -7,7 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.polito.tdp.food.model.Condiment;
 import it.polito.tdp.food.model.CondimentEdge;
+import it.polito.tdp.food.model.CondimentIdMap;
+import it.polito.tdp.food.model.Food;
+import it.polito.tdp.food.model.FoodCondIDMap;
+import it.polito.tdp.food.model.FoodCondiment;
+import it.polito.tdp.food.model.FoodIdMap;
+import it.polito.tdp.food.model.Portion;
+import it.polito.tdp.food.model.PortionIdMap;
 
 
 public class FoodDao {
@@ -24,22 +32,80 @@ public class FoodDao {
 			ResultSet res = st.executeQuery() ;
 			
 			while(res.next()) {
-				try {
+				
 					
-					Food food = new Food(res.getInt("food_id"),
-							res.getInt("food_code"),
-							res.getString("display_name"), 
-							res.getInt("portion_default"), 
-							res.getDouble("portion_amount"),
-							res.getString("portion_display_name"),
-							res.getDouble("calories"));
+					Food food = new Food(res.getInt("food_code"),
+							res.getString("food_code"));
 				
 					
 					list.add(idMap.get(food));
 					
-				} catch (Throwable t) {
-					t.printStackTrace();
-				}
+			
+			}
+			
+			conn.close();
+			return list ;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null ;
+		}
+
+	}
+	
+	public List<FoodCondiment> listAllFoodCondiment(FoodCondIDMap foodCondIDMap, CondimentIdMap condimentIdMap, FoodIdMap foodIdMap){
+		String sql = "SELECT * FROM food_condiment" ;
+		try {
+			Connection conn = DBConnect.getConnection() ;
+
+			PreparedStatement st = conn.prepareStatement(sql) ;
+			
+			List<FoodCondiment> list = new ArrayList<>() ;
+			
+			ResultSet res = st.executeQuery() ;
+			
+			while(res.next()) {
+				
+					
+					FoodCondiment foodCondiment = new FoodCondiment(res.getInt("id"), foodIdMap.get(res.getInt("food_code")), condimentIdMap.get(res.getInt("condiment_code")));
+							
+					list.add(foodCondIDMap.get(foodCondiment));
+					
+					
+				
+			}
+			
+			conn.close();
+			return list ;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null ;
+		}
+
+	}
+	
+	public List<Portion> listAllPortion(PortionIdMap portionIdMap, FoodIdMap foodIdMap){
+		String sql = "SELECT * FROM portion" ;
+		try {
+			Connection conn = DBConnect.getConnection() ;
+
+			PreparedStatement st = conn.prepareStatement(sql) ;
+			
+			List<Portion> list = new ArrayList<>() ;
+			
+			ResultSet res = st.executeQuery() ;
+			
+			while(res.next()) {
+				
+					
+					Portion portion = new Portion(res.getInt("portion_id"), foodIdMap.get(res.getInt("food_code")), res.getInt("portion_default"), res.getDouble("portion_amount"), res.getString("portion_display_name"), res.getDouble("calories"));
+							
+					list.add(portionIdMap.get(portion));
+					
+					
 			}
 			
 			conn.close();
@@ -65,21 +131,19 @@ public class FoodDao {
 			ResultSet res = st.executeQuery() ;
 			
 			while(res.next()) {
-				try {
+				
 					
-					Condiment condiment = new Condiment(res.getInt("condiment_id"),
-							res.getInt("food_code"),
+					Condiment condiment = new Condiment(res.getInt("condiment_code"),
 							res.getString("display_name"), 
-							res.getString("condiment_portion_size"), 
+							res.getString("condiment_portion_size"),
+							res.getInt("condiment_portion_code"),
 							res.getDouble("condiment_calories")
 							);
 							
 					list.add(idMap.get(condiment));
 					
 					
-				} catch (Throwable t) {
-					t.printStackTrace();
-				}
+				
 			}
 			
 			conn.close();
@@ -219,7 +283,7 @@ public class FoodDao {
 				"where c.condiment_id=? " + 
 				"and c.food_code=fc.condiment_food_code " + 
 				"and f.food_code=fc.food_code " + 
-				"group by c.condiment_id, c.display_name" ;
+				"group by c.condiment_id, c.display_name" ; 
 		try {
 			Connection conn = DBConnect.getConnection() ;
 

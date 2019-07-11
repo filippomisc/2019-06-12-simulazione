@@ -1,4 +1,4 @@
-package it.polito.tdp.food.db;
+package it.polito.tdp.food.model;
 
 import java.util.*;
 
@@ -15,9 +15,9 @@ public class CondimentIdMap {
 		}
 		
 		public Condiment get(Condiment oggetto) {
-			Condiment old = map.get(oggetto.getCondiment_id());
+			Condiment old = map.get(oggetto.getCondiment_code());
 			if (old == null) {
-				map.put(oggetto.getCondiment_id(), oggetto);
+				map.put(oggetto.getCondiment_code(), oggetto);
 				return oggetto;
 			}
 			return old;

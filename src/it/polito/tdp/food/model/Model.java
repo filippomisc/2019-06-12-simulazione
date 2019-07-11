@@ -23,10 +23,13 @@ public class Model {
 	
 	private List<Food> foods;
 	private List<Condiment> condiments;
+	private List<Portion> portions;
+	private List<FoodCondiment> foodCondiments;
 	
 	private FoodIdMap foodIdMap;
 	private CondimentIdMap condimentIdMap;
-	
+	private PortionIdMap portionIdMap;
+	private FoodCondIDMap foodCondIDMap;
 	
 	
 
@@ -37,12 +40,20 @@ public class Model {
 		
 		this.foodIdMap= new FoodIdMap();
 		this.condimentIdMap=new CondimentIdMap();
+		this.portionIdMap=new PortionIdMap();
+		this.foodCondIDMap=new FoodCondIDMap();
 		
 		this.foods= dao.listAllFood(this.foodIdMap);
 		System.out.println(foods.size());
 		
 		this.condiments= dao.listAllCondiment(condimentIdMap);
 		System.out.println(condiments.size());
+		
+		this.portions=dao.listAllPortion(portionIdMap, foodIdMap);
+		System.out.println(portions.size());
+		
+		this.foodCondiments=dao.listAllFoodCondiment(foodCondIDMap, condimentIdMap, foodIdMap);
+		System.out.println(foodCondiments.size());
 		
 	}
 	

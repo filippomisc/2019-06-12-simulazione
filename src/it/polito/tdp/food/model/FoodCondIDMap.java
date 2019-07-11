@@ -1,4 +1,4 @@
-package it.polito.tdp.food.db;
+package it.polito.tdp.food.model;
 
 import java.util.HashMap;
 import java.util.Map;

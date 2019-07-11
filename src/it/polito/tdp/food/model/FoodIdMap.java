@@ -1,4 +1,4 @@
-package it.polito.tdp.food.db;
+package it.polito.tdp.food.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,9 +17,9 @@ public class FoodIdMap {
 	}
 	
 	public Food get(Food oggetto) {
-		Food old = map.get(oggetto.getFood_id());
+		Food old = map.get(oggetto.getFood_code());
 		if (old == null) {
-			map.put(oggetto.getFood_id(), oggetto);
+			map.put(oggetto.getFood_code(), oggetto);
 			return oggetto;
 		}
 		return old;
